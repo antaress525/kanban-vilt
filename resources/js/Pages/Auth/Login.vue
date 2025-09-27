@@ -18,7 +18,7 @@
                     <Label for="password">Mot de passe</Label>
                     <Link :href="route('password.request')" class="text-xs text-gray-600 hover:text-gray-900">Mot de passe oublier ?</Link>
                 </div>
-                <Input type="password" id="password" v-model="form.password" placeholder="Mot de passe" />
+                <Password v-model="form.password" />
                 <label class="text-red-500 text-sm" v-if="form.errors.password">{{ form.errors.password }}</label>
             </div>
             <Button class="w-full bg-black text-white">
@@ -35,8 +35,9 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import { Loader2, LogIn } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label'
-import { Input } from "@/components/ui/input"
+import { Label } from '@/components/ui/label';
+import { Input } from "@/components/ui/input";
+import Password from '@/components/custom/input/Password.vue';
 
 defineProps({
     canResetPassword: {
