@@ -1,13 +1,53 @@
+<template>
+    <GuestLayout>
+        <Head title="S'inscrire" />
+
+        <form @submit.prevent="submit" class="space-y-6 w-full max-w-[340px]">
+            <!-- First_name $ Last_name -->
+             <div class="grid grid-cols-2 gap-2">
+                <div class="space-y-2">
+                    <Label for="first_name">Prénom</Label>
+                    <Input type="text" id="name" v-model="form.first_name" placeholder="John" />
+                    <label class="text-red-500 text-sm" v-if="form.errors.first_name">{{ form.errors.first_name }}</label>
+                </div>
+                <div class="space-y-2">
+                    <Label for="last_name">Nom</Label>
+                    <Input type="text" id="last_name" v-model="form.last_name" placeholder="Doe" />
+                    <label class="text-red-500 text-sm" v-if="form.errors.last_name">{{ form.errors.last_name }}</label>
+                </div>
+             </div>
+            <!-- Email -->
+            <div class="space-y-2">
+                <Label for="email">Email</Label>
+                <Input type="email" id="email" v-model="form.email" placeholder="johhdoe@gmail.com" />
+                <label class="text-red-500 text-sm" v-if="form.errors.email">{{ form.errors.email }}</label>
+            </div>
+            <!-- Password -->
+            <div class="space-y-2">
+                <Label for="password">Mot de passe</Label>
+                <Password v-model="form.password" />
+                <label class="text-red-500 text-sm" v-if="form.errors.password">{{ form.errors.password }}</label>
+            </div>
+            <Button class="w-full bg-black text-white">
+                <Loader2 v-if="form.processing" class="w-5 h-5 mr-2 animate-spin" />
+                Créer mon espace Kanban
+            </Button>
+        </form>
+    </GuestLayout>
+</template>
+
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Loader2 } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from "@/components/ui/input";
+import { useForm } from '@inertiajs/vue3';
+import Password from '@/components/custom/input/Password.vue';
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -19,95 +59,3 @@ const submit = () => {
     });
 };
 </script>
-
-<template>
-    <GuestLayout>
-        <Head title="Register" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>
