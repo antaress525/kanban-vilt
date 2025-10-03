@@ -12,6 +12,14 @@ class Kanban extends Model
     /** @use HasFactory<\Database\Factories\KanbanFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'color',
+        'cover_image',
+        'user_id',
+    ];
+
     public function owner():BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->middleware(['auth'])->name('kanban.')->controller(KanbanController::class)->group(function () {
     Route::get('/kanban', 'index')->name('index');
+    Route::post('/kanban', 'store')->name('store');
+    Route::get('kanban/{kanban}/', 'show')
+        ->whereNumber('kanban')
+        ->name('show');
 });
 
 require __DIR__.'/auth.php';

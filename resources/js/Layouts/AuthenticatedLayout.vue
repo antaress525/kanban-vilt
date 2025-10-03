@@ -25,6 +25,9 @@
                     </NavGroup>
                     <NavGroup label="Kanban">
                         <template #nav-items>
+                            <NavKanban v-for="kanban in kanbans" :kanban="kanban">
+                                Creation d'un site web avec laravel
+                            </NavKanban>
                             <NavItems as="button">
                                 <Plus class="w-5 h-5" />
                                 Creation kanban
@@ -70,6 +73,7 @@ import { usePage } from '@inertiajs/vue3';
 import ResponsiveNav from '@/components/ResponsiveNav.vue';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import NavKanban from '@/components/NavKanban.vue';
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
@@ -77,4 +81,9 @@ const page = usePage();
 const authUser = computed(() => {
     return page.props.auth.user;
 });
+
+const kanbans = computed(() => {
+    return page.props.auth.kanbans;
+});
+
 </script>
