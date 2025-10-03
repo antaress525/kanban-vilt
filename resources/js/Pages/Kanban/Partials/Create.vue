@@ -62,6 +62,10 @@ const submit = () => {
         title: data.title,
         color: color.value
     }))
-    .post(route('kanban.store'));
+    .post(
+        route('kanban.store'),{
+            onSuccess: () => form.reset()
+        }
+    );
 }
 </script>

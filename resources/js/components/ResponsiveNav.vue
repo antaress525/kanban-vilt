@@ -23,6 +23,9 @@
                     <div class="space-y-6 px-2">
                         <NavGroup label="Kanban">
                             <template #nav-items>
+                                <NavKanban v-for="kanban in kanbans" :kanban="kanban">
+                                    Creation d'un site web avec laravel
+                                </NavKanban>
                                 <NavItems as="button">
                                     <Plus class="w-5 h-5" />
                                     Creation kanban
@@ -38,19 +41,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Button } from '@/components/ui/button';
 import { X, Plus } from 'lucide-vue-next';
 import NavGroup from '@/components/NavGroup.vue';
 import NavItems from '@/components/NavItems.vue';
-import Profile from './Profile.vue';
+import NavKanban from './NavKanban.vue';
+import { usePage } from '@inertiajs/vue3';
 
 
-const open = ref(false);
+const open = ref(false)
 const toggle = () => {
-    open.value = !open.value;
+    open.value = !open.value
 };
 const close = () => {
-    open.value = false;
+    open.value = false
 };
+
+const page = usePage()
+
+const kanbans = computed(() => {
+    return page.props.auth.kanbans;
+});
 </script>
